@@ -11,5 +11,6 @@ class _ExcersiceScreenPageState extends State<ExcersiceScreenPage> {
   @override
   Widget build(BuildContext context) {
     return const Placeholder();
+    print("Hello World" + DateTime.now().toString());
   }
 }
