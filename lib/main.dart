@@ -4,7 +4,6 @@ import 'choose_character_screen.dart';
 import 'bottom_nav_bar.dart';
 import 'new_workout_section_screen.dart';
 import 'workout_sections_screen.dart';
-
 void main() {
   runApp(MyApp());
 }

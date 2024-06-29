@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'main_screen.dart';
 import 'timer_screen.dart';
 import 'settings_screen.dart';
-
 class BottomNavBar extends StatefulWidget {
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
@@ -12,9 +11,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
 
   static List<Widget> _widgetOptions = <Widget>[
-    MainScreen(),
-    TimerScreen(),
-    SettingsScreen(),
+    MainScreen(), // Замените на ваш главный экран
+    TimerScreen(), // Экран таймера
+    SettingsScreen(), // Экран настроек
   ];
 
   void _onItemTapped(int index) {
@@ -31,15 +30,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Главная',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.timer),
-            label: 'Timer',
+            label: 'Таймер',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Settings',
+            label: 'Настройки',
           ),
         ],
         currentIndex: _selectedIndex,
