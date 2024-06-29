@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'section_detail_screen.dart';
 import 'dart:convert';
 
 class WorkoutDetailScreen extends StatefulWidget {
   final String workoutName;
-
   WorkoutDetailScreen({required this.workoutName});
-
   @override
   _WorkoutDetailScreenState createState() => _WorkoutDetailScreenState();
 }
 
 class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
   List<Map<String, dynamic>> sections = [];
-
   void _addSection() {
     TextEditingController _sectionNameController = TextEditingController();
     TextEditingController _setsController = TextEditingController();
-
     showDialog(
       context: context,
       builder: (context) {
@@ -65,7 +60,6 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
     TextEditingController _exerciseNameController = TextEditingController();
     TextEditingController _repsController = TextEditingController();
     TextEditingController _timeController = TextEditingController();
-
     showDialog(
       context: context,
       builder: (context) {
@@ -117,15 +111,12 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
   Future<void> _saveWorkout() async {
     final prefs = await SharedPreferences.getInstance();
     final workouts = prefs.getStringList('workouts') ?? [];
-
     final workoutData = {
       'name': widget.workoutName,
       'sections': sections,
     };
-
     workouts.add(jsonEncode(workoutData));
     await prefs.setStringList('workouts', workouts);
-
     Navigator.pop(context);
   }
 
@@ -144,23 +135,34 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
       body: ListView.builder(
         itemCount: sections.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(sections[index]['name']),
-            subtitle: Text('Sets: ${sections[index]['sets']}'),
-            trailing: IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => _addExercise(index),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SectionDetailScreen(
-                    section: sections[index],
-                  ),
+          return Card(
+            margin: EdgeInsets.all(8.0),
+            child: ExpansionTile(
+              title: Text(
+                sections[index]['name'],
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text('Sets: ${sections[index]['sets']}'),
+              children: [
+                ...sections[index]['exercises']
+                    .map<Widget>((exercise) => ListTile(
+                          title: Text(
+                            exercise['name'],
+                            style: TextStyle(fontSize: 14.0),
+                          ),
+                          subtitle: Text(
+                            'Reps: ${exercise['reps']} Time: ${exercise['time']} seconds',
+                            style: TextStyle(fontSize: 12.0),
+                          ),
+                        ))
+                    .toList(),
+                ListTile(
+                  leading: Icon(Icons.add),
+                  title: Text('Add Exercise'),
+                  onTap: () => _addExercise(index),
                 ),
-              );
-            },
+              ],
+            ),
           );
         },
       ),

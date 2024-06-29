@@ -1,10 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'workout_detail_screen.dart';
+import 'dart:convert';
 
-class WorkoutHistoryScreen extends StatelessWidget {
+class WorkoutHistoryScreen extends StatefulWidget {
   final List<Map<String, dynamic>> workouts;
-
   WorkoutHistoryScreen({required this.workouts});
+  @override
+  _WorkoutHistoryScreenState createState() => _WorkoutHistoryScreenState();
+}
+
+class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
+  List<Map<String, dynamic>> workouts = [];
+  @override
+  void initState() {
+    super.initState();
+    _loadWorkouts();
+  }
+
+  Future<void> _loadWorkouts() async {
+    final prefs = await SharedPreferences.getInstance();
+    final workoutsData = prefs.getStringList('workouts') ?? [];
+    setState(() {
+      workouts = workoutsData
+          .map((workout) => jsonDecode(workout) as Map<String, dynamic>)
+          .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
