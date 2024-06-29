@@ -21,7 +21,7 @@ class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     final name = ref.watch(nameProvider);
-    final theme = ref.watch(themeProvider);
+    final theme = Theme.of(context);
     return Scaffold(
       body: Center(
         child: Stack(
@@ -133,7 +133,7 @@ class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
                                 child: Center(
                                     child: Text(
                                   "Continue",
-                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
                                 )),
                               )),
                         ),

@@ -20,7 +20,7 @@ class _ChooseCharacterScreen extends ConsumerState<ChooseCharacterScreen> {
   @override
   Widget build(BuildContext context) {
     final name = ref.watch(nameProvider);
-    final theme = ref.watch(themeProvider);
+    final theme = Theme.of(context);
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
@@ -45,12 +45,14 @@ class _ChooseCharacterScreen extends ConsumerState<ChooseCharacterScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(padding: EdgeInsets.only(top: 52)),
-                 Text(
+                Text(
                   "Nice to meet you, ${name.name}!",
+                  style: theme.textTheme.headlineLarge?.copyWith(color: Colors.white),
                 ),
                 Expanded(
                     flex: 10,
-                    child: Container(width: 500, height: 500, color: Colors.transparent)),
+                    child: Container(
+                        width: 500, height: 500, color: Colors.transparent)),
                 const Padding(padding: EdgeInsets.all(16)),
                 const Spacer(flex: 1),
                 Expanded(
@@ -64,28 +66,27 @@ class _ChooseCharacterScreen extends ConsumerState<ChooseCharacterScreen> {
                           children: [
                             Container(
                               child: InkWell(
-                                    borderRadius: BorderRadius.circular(20),
-                                    onTap: () {
-                                      Navigator.pushNamed(context, '/home');
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.symmetric(vertical: 6),
-                                        child: Center(
-                                            child: Text(
-                                          'Let\'s start!',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge,
-                                        )),
-                                      ),
-                                    )),
-                              
+                                  borderRadius: BorderRadius.circular(20),
+                                  onTap: () {
+                                    Navigator.pushNamed(context, '/home');
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 6),
+                                      child: Center(
+                                          child: Text(
+                                        'Let\'s start!',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge?.copyWith(color: Colors.white),
+                                      )),
+                                    ),
+                                  )),
                             ),
                           ],
                         ),

@@ -15,15 +15,13 @@ class NameNotifier extends ChangeNotifier {
   }
 }
 
-
-
-
 final themeProvider = StateNotifierProvider<ThemeProvider, ThemeData>((ref) {
   return ThemeProvider();
 });
 
 class ThemeProvider extends StateNotifier<ThemeData> {
-  ThemeProvider() : super(lightTheme) { // Default to lightTheme
+  ThemeProvider() : super(lightTheme) {
+    // Default to lightTheme
     _loadTheme();
   }
 
@@ -37,5 +35,6 @@ class ThemeProvider extends StateNotifier<ThemeData> {
     state = isDark ? darkTheme : lightTheme;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isDark', isDark);
+    print(state.textTheme.bodyLarge!.color);
   }
 }

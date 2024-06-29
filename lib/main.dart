@@ -1,4 +1,5 @@
 import 'package:fit_track/data/provider.dart';
+import 'package:fit_track/ui/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'welcome_screen.dart';
@@ -22,6 +23,8 @@ class MyApp extends ConsumerWidget {
     // Return MaterialApp with the current theme
     return MaterialApp(
       theme: theme,
+        themeMode: theme==lightTheme?ThemeMode.light:ThemeMode.dark,
+      darkTheme: darkTheme,
       title: 'Workout App',
       initialRoute: '/',
       routes: {
