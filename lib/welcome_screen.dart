@@ -21,20 +21,21 @@ class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     final name = ref.watch(nameProvider);
+    final theme = ref.watch(themeProvider);
     return Scaffold(
       body: Center(
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              color: const Color(0xFFD6C5F9),
+              color: theme.cardColor,
             ),
             Container(
               alignment: Alignment.bottomCenter,
               height: MediaQuery.of(context).size.height * 0.67,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: theme.scaffoldBackgroundColor,
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.elliptical(200, 225),
                   topRight: Radius.elliptical(200, 225),
                 ),
@@ -70,16 +71,17 @@ class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
                               textAlign: TextAlign.center,
                               textAlignVertical: TextAlignVertical.center,
                               controller: nameController,
-                              style: Theme.of(context).textTheme.titleLarge,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(color: const Color(0x50000000)),
                               decoration: InputDecoration(
                                 isCollapsed: true,
                                 hintText: "Type your name here",
                                 hintStyle: Theme.of(context)
                                     .textTheme
-                                    .titleLarge
-                                    ?.copyWith(
-                                        fontSize: 24,
-                                        color: const Color(0x25000000)),
+                                    .bodyLarge
+                                    ?.copyWith(color: const Color(0x50000000)),
                                 border: InputBorder.none,
                               ),
                             ),
@@ -131,10 +133,7 @@ class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
                                 child: Center(
                                     child: Text(
                                   "Continue",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(color: Colors.white),
+                                  style: Theme.of(context).textTheme.bodyLarge,
                                 )),
                               )),
                         ),

@@ -1,3 +1,4 @@
+import 'package:fit_track/data/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'welcome_screen.dart';
@@ -9,18 +10,18 @@ import 'workout_detail_screen.dart';
 import 'section_detail_screen.dart';
 
 void main() {
-  runApp(
-    ProviderScope(child: MyApp())
-  );
+  runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Use ref.watch to listen to the theme changes
+    final theme = ref.watch(themeProvider);
+
+    // Return MaterialApp with the current theme
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Lexend',
-      ),
+      theme: theme,
       title: 'Workout App',
       initialRoute: '/',
       routes: {
