@@ -9,7 +9,6 @@ class AddExerciseScreen extends StatelessWidget {
         child: Column(
           children: [
             Text('Add Exercise Screen', style: TextStyle(fontSize: 24)),
-            // Add more widgets to define the exercise details
           ],
         ),
       ),

@@ -14,7 +14,6 @@ class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     ref.read(nameProvider);
   }
@@ -50,8 +49,6 @@ class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
                       child: Container(
                         width: 500,
                         height: 500,
-                        // decoration: BoxDecoration(
-                        //     border: Border.all(color: Colors.black)),
                       )),
                   const Padding(padding: EdgeInsets.all(16)),
                   const Spacer(flex: 1),

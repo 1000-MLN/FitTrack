@@ -13,7 +13,6 @@ class ChooseCharacterScreen extends ConsumerStatefulWidget {
 class _ChooseCharacterScreen extends ConsumerState<ChooseCharacterScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     ref.read(nameProvider);
   }
@@ -58,18 +57,16 @@ class _ChooseCharacterScreen extends ConsumerState<ChooseCharacterScreen> {
                                 onTap: () {
                                   Navigator.pushNamed(context, '/home');
                                 },
-                                child: Expanded(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 6),
-                                    child: Center(
-                                        child: Text(
-                                      'Let\'s start!',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge,
-                                    )),
-                                  ),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 6),
+                                  child: Center(
+                                      child: Text(
+                                    'Let\'s start!',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge,
+                                  )),
                                 )),
                           ),
                         ),

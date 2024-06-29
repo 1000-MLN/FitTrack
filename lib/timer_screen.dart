@@ -125,7 +125,7 @@ class _TimerScreenState extends State<TimerScreen>
               children: <Widget>[
                 SizedBox(
                   width: 100,
-                  height: 200, // Ограничиваем высоту
+                  height: 200, 
                   child: ListWheelScrollView(
                     itemExtent: 60,
                     diameterRatio: 1.5,
@@ -145,7 +145,7 @@ class _TimerScreenState extends State<TimerScreen>
                 Text(':', style: TextStyle(fontSize: 24)),
                 SizedBox(
                   width: 100,
-                  height: 200, // Ограничиваем высоту
+                  height: 200, 
                   child: ListWheelScrollView(
                     itemExtent: 60,
                     diameterRatio: 1.5,

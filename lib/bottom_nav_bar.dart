@@ -11,9 +11,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
 
   static List<Widget> _widgetOptions = <Widget>[
-    MainScreen(), // Замените на ваш главный экран
-    TimerScreen(), // Экран таймера
-    SettingsScreen(), // Экран настроек
+    MainScreen(), 
+    TimerScreen(), 
+    SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {

@@ -3,11 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'welcome_screen.dart';
 import 'choose_character_screen.dart';
 import 'bottom_nav_bar.dart';
-import 'new_workout_section_screen.dart';
-import 'workout_sections_screen.dart';
+import 'create_workout_screen.dart';
+import 'workout_history_screen.dart';
+import 'workout_detail_screen.dart';
+import 'section_detail_screen.dart';
+
 void main() {
   runApp(
-    ProviderScope(child: MyApp()));
+    ProviderScope(child: MyApp())
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,8 +27,10 @@ class MyApp extends StatelessWidget {
         '/': (context) => WelcomeScreen(),
         '/chooseCharacter': (context) => ChooseCharacterScreen(),
         '/home': (context) => BottomNavBar(),
-        '/newWorkoutSection': (context) => NewWorkoutSectionScreen(),
-        '/workoutSections': (context) => WorkoutSectionsScreen(),
+        '/createWorkout': (context) => CreateWorkoutScreen(),
+        '/workoutHistory': (context) => WorkoutHistoryScreen(workouts: []),
+        '/workoutDetail': (context) => WorkoutDetailScreen(workoutName: ''),
+        '/sectionDetail': (context) => SectionDetailScreen(section: {}),
       },
     );
   }
