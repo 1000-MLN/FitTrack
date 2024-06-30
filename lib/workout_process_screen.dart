@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class WorkoutProcessScreen extends StatefulWidget {
@@ -11,17 +12,23 @@ class WorkoutProcessScreen extends StatefulWidget {
   _WorkoutProcessScreenState createState() => _WorkoutProcessScreenState();
 }
 
-class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
+class _WorkoutProcessScreenState extends State<WorkoutProcessScreen>
+    with SingleTickerProviderStateMixin {
   int currentExerciseIndex = 0;
   int currentSet = 1;
   int currentReps = 0;
   int remainingTime = 0;
   Timer? timer;
   bool isRunning = false;
+  AnimationController? _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 0),
+    );
     setupExercise();
   }
 
@@ -30,6 +37,8 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
       currentReps = widget.exercises[currentExerciseIndex]['reps'];
       remainingTime = widget.exercises[currentExerciseIndex]['time'];
       isRunning = false;
+      _controller!.duration = Duration(seconds: remainingTime);
+      _controller!.reset();
     });
   }
 
@@ -37,6 +46,8 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
     setState(() {
       isRunning = true;
     });
+
+    _controller!.forward();
 
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (remainingTime > 0) {
@@ -48,9 +59,9 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
           if (currentReps > 1) {
             currentReps--;
             remainingTime = widget.exercises[currentExerciseIndex]['time'];
-                        timer.cancel();
-                        isRunning = false;
-
+            _controller!.duration = Duration(seconds: remainingTime);
+            _controller!.reset();
+            _controller!.forward();
           } else {
             timer.cancel();
             nextSetOrExercise();
@@ -65,18 +76,19 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
       isRunning = false;
     });
     timer?.cancel();
+    _controller!.stop();
   }
 
   void nextSetOrExercise() {
-    if (currentSet < widget.exercises[currentExerciseIndex]['sets'] && currentExerciseIndex == widget.exercises.length - 1) {
-      print("HUI");
-      print( widget.exercises[currentExerciseIndex]['sets']);
-      print("$currentSet");
+    if (currentSet < widget.exercises[currentExerciseIndex]['sets'] &&
+        currentExerciseIndex == widget.exercises.length - 1) {
       setState(() {
         currentSet++;
         currentExerciseIndex = 0;
         currentReps = widget.exercises[0]['reps'];
         remainingTime = widget.exercises[0]['time'];
+        _controller!.duration = Duration(seconds: remainingTime);
+        _controller!.reset();
         isRunning = false;
       });
     } else if (currentExerciseIndex < widget.exercises.length - 1) {
@@ -106,6 +118,7 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
   @override
   void dispose() {
     timer?.cancel();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -133,25 +146,23 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
               ],
             ),
             const SizedBox(height: 20),
-            Expanded(
+            SizedBox(
+              width: 400,
+              height: 400,
               child: Center(
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: CircularProgressIndicator(
-                        value: remainingTime / currentExercise['time'],
-                        strokeWidth: 8,
-                        backgroundColor: Colors.grey[300],
-                      ),
-                    ),
-                    Text(
+                child: CustomPaint(
+                  size: Size(200, 200),
+                  painter: WorkoutTimerPainter(
+                    animation: _controller!,
+                    backgroundColor: Colors.grey[300]!,
+                    color: Color(0xFFC5AEF6),
+                  ),
+                  child: Center(
+                    child: Text(
                       '$remainingTime sec',
                       style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -178,5 +189,51 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
         ),
       ),
     );
+  }
+}
+
+class WorkoutTimerPainter extends CustomPainter {
+  final Animation<double> animation;
+  final Color backgroundColor;
+  final Color color;
+
+  WorkoutTimerPainter({
+    required this.animation,
+    required this.backgroundColor,
+    required this.color,
+  }) : super(repaint: animation);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = backgroundColor
+      ..strokeWidth = 10.0
+      ..strokeCap = StrokeCap.butt
+      ..style = PaintingStyle.stroke;
+
+    canvas.drawCircle(size.center(Offset.zero), size.width / 2, paint);
+
+    Paint progressPaint = Paint()
+      ..color = color
+      ..strokeWidth = 10.0
+      ..strokeCap = StrokeCap.butt
+      ..style = PaintingStyle.stroke;
+
+    double progress = (1.0 - animation.value) * 2 * math.pi;
+
+    canvas.drawArc(
+      Rect.fromCircle(center: size.center(Offset.zero), radius: size.width / 2),
+      math.pi * 1.5,
+      -progress,
+      false,
+      progressPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(WorkoutTimerPainter oldDelegate) {
+    return animation.value != oldDelegate.animation.value ||
+        color != oldDelegate.color ||
+        backgroundColor != oldDelegate.backgroundColor;
   }
 }
