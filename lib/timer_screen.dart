@@ -105,7 +105,7 @@ class _TimerScreenState extends State<TimerScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Таймер', style: TextStyle(color: Colors.black)),
+        title: Text('Timer', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
       ),
@@ -170,7 +170,7 @@ class _TimerScreenState extends State<TimerScreen>
             ),
             SizedBox(height: 20),
             Text(
-              'Выбранное время: $_minutes мин. $_seconds сек.',
+              'Selected time: $_minutes min. $_seconds sec.',
               style: TextStyle(fontSize: 20, color: Colors.black),
             ),
             SizedBox(height: 20),

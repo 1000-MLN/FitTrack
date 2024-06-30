@@ -11,7 +11,7 @@ class CreateWorkoutScreen extends StatelessWidget {
         leading: Align(
           alignment: Alignment.centerLeft,
           child: IconButton(
-              icon: Icon(Icons.arrow_back), // Custom icon
+              icon: Icon(Icons.arrow_back), 
               onPressed: () {
                 Navigator.of(context).pop(); // Manually handle the navigation
               },),

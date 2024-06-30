@@ -10,7 +10,11 @@ class WorkoutDetailScreen extends StatefulWidget {
   final int? id;
 
   const WorkoutDetailScreen(
-      {super.key, required this.workoutName, this.sections, this.workout, this.id});
+      {super.key,
+      required this.workoutName,
+      this.sections,
+      this.workout,
+      this.id});
 
   @override
   _WorkoutDetailScreenState createState() => _WorkoutDetailScreenState();
@@ -57,7 +61,6 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                       'name': _sectionNameController.text,
                       'sets': int.parse(_setsController.text),
                       'exercises': [],
-                      
                     });
                   });
                   Navigator.pop(context);
@@ -94,7 +97,8 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
               ),
               TextField(
                 controller: _timeController,
-                decoration: const InputDecoration(labelText: 'Time (in seconds)'),
+                decoration:
+                    const InputDecoration(labelText: 'Time (in seconds)'),
                 keyboardType: TextInputType.number,
               ),
             ],
@@ -153,90 +157,98 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         title: Text(widget.workoutName),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: _saveWorkout,
           ),
-          
         ],
       ),
       body: ListView.builder(
-        itemCount: sections.length+1,
+        itemCount: sections.length + 1,
         itemBuilder: (context, index) {
-          if (index == sections.length && sections.isNotEmpty ) {
-return Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    IntrinsicWidth(
-      child: ElevatedButton(
-                  onPressed: () {
-                    if (sections.expand((section) => section['exercises']).toList().isNotEmpty){
-Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WorkoutProcessScreen(
-                          workoutName: widget.workoutName,
-                          exercises: sections.expand((section) => section['exercises']).toList(),
-                        ),
-                      ),
-                    );
-                    } else {
-                      showDialog(context: context, builder: (builder) => AlertDialog(title: Text("Please add exercises to the workout"),
-                      actions: [ElevatedButton(onPressed: () => Navigator.pop(context), child: Text("Ok"))],));
-                    }
-                   
-                    
-                  },
-                  child:Text("Lets start!", style: Theme.of(context).textTheme.bodyLarge),
-                 
-                ),
-    ),
-  ],
-);
-          } else if(sections.isNotEmpty) {
-            return Card(
-            margin: const EdgeInsets.all(8.0),
-            child: ExpansionTile(
-              title: Text(
-                sections[index]['name'],
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text('Sets: ${sections[index]['sets']}'),
+          if (index == sections.length && sections.isNotEmpty) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ...sections[index]['exercises']
-                    .map<Widget>((exercise) => ListTile(
-                          title: Text(
-                            exercise['name'],
-                            style: const TextStyle(fontSize: 14.0),
+                IntrinsicWidth(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (sections
+                          .expand((section) => section['exercises'])
+                          .toList()
+                          .isNotEmpty) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WorkoutProcessScreen(
+                              workoutName: widget.workoutName,
+                              exercises: sections
+                                  .expand((section) => section['exercises'])
+                                  .toList(),
+                            ),
                           ),
-                          subtitle: Text(
-                            'Reps: ${exercise['reps']} Time: ${exercise['time']} sec',
-                            style: const TextStyle(fontSize: 12.0),
-                          ),
-                        ))
-                    .toList(),
-                ListTile(
-                  leading: const Icon(Icons.add),
-                  title: const Text('Add Exercise'),
-                  onTap: () => _addExercise(index),
+                        );
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (builder) => AlertDialog(
+                                  title: Text(
+                                      "Please add exercises to the workout"),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("Ok"))
+                                  ],
+                                ));
+                      }
+                    },
+                    child: Text("Lets start!",
+                        style: Theme.of(context).textTheme.bodyLarge),
+                  ),
                 ),
               ],
-            ),
-          );
-       
+            );
+          } else if (sections.isNotEmpty) {
+            return Card(
+              margin: const EdgeInsets.all(8.0),
+              child: ExpansionTile(
+                title: Text(
+                  sections[index]['name'],
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text('Sets: ${sections[index]['sets']}'),
+                children: [
+                  ...sections[index]['exercises']
+                      .map<Widget>((exercise) => ListTile(
+                            title: Text(
+                              exercise['name'],
+                              style: const TextStyle(fontSize: 14.0),
+                            ),
+                            subtitle: Text(
+                              'Reps: ${exercise['reps']} Time: ${exercise['time']} sec',
+                              style: const TextStyle(fontSize: 12.0),
+                            ),
+                          ))
+                      .toList(),
+                  ListTile(
+                    leading: const Icon(Icons.add),
+                    title: const Text('Add Exercise'),
+                    onTap: () => _addExercise(index),
+                  ),
+                ],
+              ),
+            );
           }
-           },
+        },
       ),
-      floatingActionButton: 
-          FloatingActionButton(
-            onPressed: _addSection,
-            child: const Icon(Icons.add),
-            tooltip: 'Add Section',
-          ),
-         
-    
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addSection,
+        child: const Icon(Icons.add),
+        tooltip: 'Add Section',
+      ),
     );
   }
 }
