@@ -4,15 +4,18 @@ import 'dart:convert';
 
 class WorkoutDetailScreen extends StatefulWidget {
   final String workoutName;
-  final List<Map<String, dynamic>>? sections;
+  final List<dynamic>? sections;
+  final Map<String, dynamic>? workout;
+  final int? id;
 
-  WorkoutDetailScreen({required this.workoutName, this.sections});
+  const WorkoutDetailScreen(
+      {super.key, required this.workoutName, this.sections, this.workout, this.id});
   @override
   _WorkoutDetailScreenState createState() => _WorkoutDetailScreenState();
 }
 
 class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
-  List<Map<String, dynamic>> sections = [];
+  List<dynamic> sections = [];
   void _addSection() {
     TextEditingController _sectionNameController = TextEditingController();
     TextEditingController _setsController = TextEditingController();
@@ -20,17 +23,17 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Add Section'),
+          title: const Text('Add Section'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: _sectionNameController,
-                decoration: InputDecoration(labelText: 'Section Name'),
+                decoration: const InputDecoration(labelText: 'Section Name'),
               ),
               TextField(
                 controller: _setsController,
-                decoration: InputDecoration(labelText: 'Number of Sets'),
+                decoration: const InputDecoration(labelText: 'Number of Sets'),
                 keyboardType: TextInputType.number,
               ),
             ],
@@ -50,7 +53,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                   Navigator.pop(context);
                 }
               },
-              child: Text('Add'),
+              child: const Text('Add'),
             ),
           ],
         );
@@ -66,22 +69,22 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Add Exercise'),
+          title: const Text('Add Exercise'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: _exerciseNameController,
-                decoration: InputDecoration(labelText: 'Exercise Name'),
+                decoration: const InputDecoration(labelText: 'Exercise Name'),
               ),
               TextField(
                 controller: _repsController,
-                decoration: InputDecoration(labelText: 'Number of Reps'),
+                decoration: const InputDecoration(labelText: 'Number of Reps'),
                 keyboardType: TextInputType.number,
               ),
               TextField(
                 controller: _timeController,
-                decoration: InputDecoration(labelText: 'Time (in seconds)'),
+                decoration: const InputDecoration(labelText: 'Time (in seconds)'),
                 keyboardType: TextInputType.number,
               ),
             ],
@@ -102,7 +105,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                   Navigator.pop(context);
                 }
               },
-              child: Text('Add'),
+              child: const Text('Add'),
             ),
           ],
         );
@@ -113,36 +116,77 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
   Future<void> _saveWorkout() async {
     final prefs = await SharedPreferences.getInstance();
     final workouts = prefs.getStringList('workouts') ?? [];
+    final workoutsId = workouts
+        .map((workout) => jsonDecode(workout) as Map<String, dynamic>)
+        .toList();
+
     final workoutData = {
       'name': widget.workoutName,
       'sections': sections,
+      'id': workoutsId.isEmpty ? 1 : workoutsId[workouts.length - 1]['id'] + 1
     };
-    workouts.add(jsonEncode(workoutData));
-    await prefs.setStringList('workouts', workouts);
-    Navigator.pop(context);
+    List<String> workoutsUpdated = workouts;
+    if (widget.workout != null) {
+      workoutsUpdated = workouts
+          .where((workout) => jsonDecode(workout)['id'] != widget.id)
+          .toList();
+      workouts.remove(jsonEncode(widget.workout));
+    }
+    workoutsUpdated.add(jsonEncode(workoutData));
+
+    await prefs.setStringList('workouts', workoutsUpdated);
+      Navigator.pushNamed(context, '/home');
   }
+
+  // Future<void> _deleteWorkworkout() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final workouts = prefs.getStringList('workouts') ?? [];
+  //   final updatedWorkouts = workouts
+  //       .where((workout) => jsonDecode(workout)['id'] != widget.id)
+  //       .toList();
+  //   final workoutsId = workouts
+  //       .map((workout) => jsonDecode(workout) as Map<String, dynamic>)
+  //       .toList();
+  //   final workoutData = {
+  //     'name': widget.workoutName,
+  //     'sections': sections,
+  //     'id': workoutsId.isEmpty ? 1 : workoutsId[workouts.length - 1]['id'] + 1
+  //   };
+  //   updatedWorkouts.remove(jsonEncode(workoutData));
+  //   prefs.clear();
+
+  //   await prefs.setStringList('workouts', updatedWorkouts);
+
+  //   // Pop the current screen to go back to the previous screen
+  //   Navigator.pop(context);
+  // }
 
   @override
   Widget build(BuildContext context) {
+    widget.sections != null ? sections = widget.sections! : sections;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.workoutName),
         actions: [
           IconButton(
-            icon: Icon(Icons.save),
+            icon: const Icon(Icons.save),
             onPressed: _saveWorkout,
           ),
+          // IconButton(
+          //   icon: Icon(Icons.delete),
+          //   onPressed: _deleteWorkworkout,
+          // ),
         ],
       ),
       body: ListView.builder(
         itemCount: sections.length,
         itemBuilder: (context, index) {
           return Card(
-            margin: EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
             child: ExpansionTile(
               title: Text(
                 sections[index]['name'],
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text('Sets: ${sections[index]['sets']}'),
               children: [
@@ -150,17 +194,17 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                     .map<Widget>((exercise) => ListTile(
                           title: Text(
                             exercise['name'],
-                            style: TextStyle(fontSize: 14.0),
+                            style: const TextStyle(fontSize: 14.0),
                           ),
                           subtitle: Text(
                             'Reps: ${exercise['reps']} Time: ${exercise['time']} seconds',
-                            style: TextStyle(fontSize: 12.0),
+                            style: const TextStyle(fontSize: 12.0),
                           ),
                         ))
                     .toList(),
                 ListTile(
-                  leading: Icon(Icons.add),
-                  title: Text('Add Exercise'),
+                  leading: const Icon(Icons.add),
+                  title: const Text('Add Exercise'),
                   onTap: () => _addExercise(index),
                 ),
               ],
@@ -170,7 +214,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addSection,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
