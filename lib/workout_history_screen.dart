@@ -12,6 +12,7 @@ class WorkoutHistoryScreen extends StatefulWidget {
 
 class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
   List<Map<String, dynamic>> workouts = [];
+
   @override
   void initState() {
     super.initState();
@@ -28,6 +29,18 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
     });
   }
 
+  Future<void> _deleteWorkout(int index) async {
+    final prefs = await SharedPreferences.getInstance();
+    final workoutsData = prefs.getStringList('workouts') ?? [];
+    workoutsData.removeAt(index);
+
+    setState(() {
+      workouts.removeAt(index);
+    });
+
+    await prefs.setStringList('workouts', workoutsData);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +50,10 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(workouts[index]['name']),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () => _deleteWorkout(index),
+            ),
             onTap: () {
               Navigator.push(
                 context,
