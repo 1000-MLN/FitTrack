@@ -8,36 +8,54 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Main Screen')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Main Screen', style: TextStyle(fontSize: 24)),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CreateWorkoutScreen(),
-                  ),
-                );
-              },
-              child: Text('Создать новую тренировку'),
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+           Container(
+            color: Theme.of(context).cardColor,
+          ),
+          Container(
+            alignment: Alignment.bottomCenter,
+            height: MediaQuery.of(context).size.height * 0.67,
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.elliptical(200, 225),
+                topRight: Radius.elliptical(200, 225),
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => WorkoutHistoryScreen(workouts: workoutHistory),
-                  ),
-                );
-              },
-              child: Text('История тренировок'),
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Main Screen', style: TextStyle(fontSize: 24)),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CreateWorkoutScreen(),
+                      ),
+                    );
+                  },
+                  child: Text('Создать новую тренировку'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WorkoutHistoryScreen(workouts: workoutHistory),
+                      ),
+                    );
+                  },
+                  child: Text('История тренировок'),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

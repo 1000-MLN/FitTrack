@@ -1,3 +1,4 @@
+import 'package:fit_track/workout_from_history.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'workout_detail_screen.dart';
@@ -41,8 +42,9 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => WorkoutDetailScreen(
+                  builder: (context) => WorkoutFromHistoryScreen(
                     workoutName: workouts[index]['name'],
+                    sections: workouts[index]['sections'],
                   ),
                 ),
               );

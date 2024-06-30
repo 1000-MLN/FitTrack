@@ -4,7 +4,9 @@ import 'dart:convert';
 
 class WorkoutDetailScreen extends StatefulWidget {
   final String workoutName;
-  WorkoutDetailScreen({required this.workoutName});
+  final List<Map<String, dynamic>>? sections;
+
+  WorkoutDetailScreen({required this.workoutName, this.sections});
   @override
   _WorkoutDetailScreenState createState() => _WorkoutDetailScreenState();
 }

@@ -22,6 +22,7 @@ class MyApp extends ConsumerWidget {
 
     // Return MaterialApp with the current theme
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: theme,
         themeMode: theme==lightTheme?ThemeMode.light:ThemeMode.dark,
       darkTheme: darkTheme,
