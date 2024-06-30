@@ -38,20 +38,21 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
       isRunning = true;
     });
 
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (remainingTime > 0) {
         setState(() {
           remainingTime--;
         });
       } else {
-        if (currentReps > 1) {
-          setState(() {
+        setState(() {
+          if (currentReps > 1) {
             currentReps--;
             remainingTime = widget.exercises[currentExerciseIndex]['time'];
-          });
-        } else {
-          nextSetOrExercise(); 
-        }
+          } else {
+            timer.cancel();
+            nextSetOrExercise();
+          }
+        });
       }
     });
   }
@@ -65,39 +66,37 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
 
   void nextSetOrExercise() {
     if (currentSet < widget.exercises[currentExerciseIndex]['sets']) {
+      
       setState(() {
         currentSet++;
         currentReps = widget.exercises[currentExerciseIndex]['reps'];
         remainingTime = widget.exercises[currentExerciseIndex]['time'];
-      });
-      startExercise();
-    } else {
-      if (currentExerciseIndex < widget.exercises.length - 1) {
-        setState(() {
-          currentExerciseIndex++;
-          currentSet = 1;
-          currentReps = widget.exercises[currentExerciseIndex]['reps'];
-          remainingTime = widget.exercises[currentExerciseIndex]['time'];
-        });
         startExercise();
-      } else {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Workout Completed!'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context)
-                      .pop(); 
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
-        );
-      }
+      });
+    } else if (currentExerciseIndex < widget.exercises.length - 1) {
+      setState(() {
+        currentExerciseIndex++;
+        currentSet = 1;
+        currentReps = widget.exercises[currentExerciseIndex]['reps'];
+        remainingTime = widget.exercises[currentExerciseIndex]['time'];
+        startExercise();
+      });
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Workout Completed!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -109,9 +108,7 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final currentExercise = widget.exercises[currentExerciseIndex];
-
-    return Scaffold(
+    final currentExercise = widget.exercises[currentExerciseIndex];return Scaffold(
       appBar: AppBar(title: Text(widget.workoutName)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -123,15 +120,15 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
               children: [
                 Text(
                   currentExercise['name'],
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   'Reps: $currentReps',
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: Center(
                 child: Stack(
@@ -149,22 +146,22 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
                     Text(
                       '$remainingTime sec',
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFC5AEF6),
+                backgroundColor: const Color(0xFFC5AEF6),
                 foregroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),

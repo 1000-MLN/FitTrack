@@ -57,6 +57,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                       'name': _sectionNameController.text,
                       'sets': int.parse(_setsController.text),
                       'exercises': [],
+                      
                     });
                   });
                   Navigator.pop(context);
@@ -109,6 +110,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                       'name': _exerciseNameController.text,
                       'reps': int.parse(_repsController.text),
                       'time': int.parse(_timeController.text),
+                      'sets': sections[sectionIndex]['sets'],
                     });
                   });
                   Navigator.pop(context);
