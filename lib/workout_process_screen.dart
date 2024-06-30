@@ -27,9 +27,9 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
 
   void setupExercise() {
     setState(() {
-      currentSet = 1;
       currentReps = widget.exercises[currentExerciseIndex]['reps'];
       remainingTime = widget.exercises[currentExerciseIndex]['time'];
+      isRunning = false;
     });
   }
 
@@ -48,6 +48,9 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
           if (currentReps > 1) {
             currentReps--;
             remainingTime = widget.exercises[currentExerciseIndex]['time'];
+                        timer.cancel();
+                        isRunning = false;
+
           } else {
             timer.cancel();
             nextSetOrExercise();
@@ -65,21 +68,21 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
   }
 
   void nextSetOrExercise() {
-    if (currentSet < widget.exercises[currentExerciseIndex]['sets']) {
-      
+    if (currentSet < widget.exercises[currentExerciseIndex]['sets'] && currentExerciseIndex == widget.exercises.length - 1) {
+      print("HUI");
+      print( widget.exercises[currentExerciseIndex]['sets']);
+      print("$currentSet");
       setState(() {
         currentSet++;
-        currentReps = widget.exercises[currentExerciseIndex]['reps'];
-        remainingTime = widget.exercises[currentExerciseIndex]['time'];
-        startExercise();
+        currentExerciseIndex = 0;
+        currentReps = widget.exercises[0]['reps'];
+        remainingTime = widget.exercises[0]['time'];
+        isRunning = false;
       });
     } else if (currentExerciseIndex < widget.exercises.length - 1) {
       setState(() {
         currentExerciseIndex++;
-        currentSet = 1;
-        currentReps = widget.exercises[currentExerciseIndex]['reps'];
-        remainingTime = widget.exercises[currentExerciseIndex]['time'];
-        startExercise();
+        setupExercise();
       });
     } else {
       showDialog(
@@ -108,7 +111,8 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final currentExercise = widget.exercises[currentExerciseIndex];return Scaffold(
+    final currentExercise = widget.exercises[currentExerciseIndex];
+    return Scaffold(
       appBar: AppBar(title: Text(widget.workoutName)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -145,8 +149,7 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen> {
                     ),
                     Text(
                       '$remainingTime sec',
-                      style:
-                          const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
