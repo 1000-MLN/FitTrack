@@ -15,6 +15,31 @@ class SectionDetailScreen extends StatelessWidget {
           return ListTile(
             title: Text(section['exercises'][index]['name']),
             subtitle: Text('Reps: ${section['exercises'][index]['reps']} Time: ${section['exercises'][index]['time']} seconds'),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text('Delete Exercise?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          section['exercises'].removeAt(index);
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        },
+                        child: Text('Yes'),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text('No'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           );
         },
       ),
