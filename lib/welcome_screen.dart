@@ -6,12 +6,11 @@ class WelcomeScreen extends ConsumerStatefulWidget {
   const WelcomeScreen({super.key});
 
   @override
-  ConsumerState<WelcomeScreen> createState() => _WelcomeScreen();
+  ConsumerState<WelcomeScreen> createState() =>
+      _WelcomeScreen();
 }
 
 class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
-  final nameController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -23,129 +22,82 @@ class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
     final name = ref.watch(nameProvider);
     final theme = Theme.of(context);
     return Scaffold(
-      body: Center(
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              color: theme.cardColor,
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            color: Theme.of(context).cardColor,
+          ),
+          Container(
+            alignment: Alignment.bottomCenter,
+            height: MediaQuery.of(context).size.height * 0.67,
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.elliptical(200, 225),
+                topRight: Radius.elliptical(200, 225),
+              ),
             ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              height: MediaQuery.of(context).size.height * 0.67,
-              decoration: BoxDecoration(
-                color: theme.scaffoldBackgroundColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.elliptical(200, 225),
-                  topRight: Radius.elliptical(200, 225),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(padding: EdgeInsets.only(top: 52)),
+                Text(
+                  "Nice to meet you, ${name.name}!",
+                  style: theme.textTheme.headlineLarge?.copyWith(color: Colors.white),
                 ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(26.0),
-              child: Column(
-                children: [
-                  Expanded(
-                      flex: 14,
-                      child: Container(
-                        width: 500,
-                        height: 500,
-                      )),
-                  const Padding(padding: EdgeInsets.all(16)),
-                  const Spacer(flex: 1),
-                  Expanded(
-                    flex: 6,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        IntrinsicWidth(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 25, vertical: 14),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFC5AEF6),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: TextField(
-                              expands: false,
-                              textAlign: TextAlign.center,
-                              textAlignVertical: TextAlignVertical.center,
-                              controller: nameController,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(color: const Color(0x50000000)),
-                              decoration: InputDecoration(
-                                isCollapsed: true,
-                                hintText: "Type your name here",
-                                hintStyle: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(color: const Color(0x50000000)),
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const Padding(padding: EdgeInsets.all(8)),
-                        IntrinsicWidth(
-                          child: InkWell(
-                              borderRadius: BorderRadius.circular(30),
-                              onTap: () {
-                                if (nameController.text.isNotEmpty) {
-                                  name.setName(nameController.text);
-                                  Navigator.pushNamed(
-                                      context, '/chooseCharacter');
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                            title: const Align(
-                                                alignment: Alignment.center,
-                                                child: Text("Error")),
-                                            content: const Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text("Please enter a name"),
-                                              ],
-                                            ),
-                                            actions: [
-                                              TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: const Align(
-                                                    alignment: Alignment.center,
-                                                    child: Text("Ok"),
-                                                  ))
-                                            ],
-                                          ));
-                                }
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFC5AEF6),
+                Expanded(
+                    flex: 10,
+                    child: Container(
+                        width: 500, height: 500, color: Colors.transparent)),
+                const Padding(padding: EdgeInsets.all(16)),
+                const Spacer(flex: 1),
+                Expanded(
+                  flex: 6,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 6,
+                        child: Column(
+                          children: [
+                            IntrinsicWidth(
+                              child: InkWell(
                                   borderRadius: BorderRadius.circular(30),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 12, horizontal: 100.2),
-                                child: Center(
-                                    child: Text(
-                                  "Continue",
-                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
-                                )),
-                              )),
+                                  onTap: () {
+                                    Navigator.pushNamed(context, '/home');
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: theme.primaryColor,
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12, horizontal: 80),
+                                    child: Center(
+                                        child: Text(
+                                      'Let\'s start!',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(color: Colors.white),
+                                    )),
+                                  )),
+                            ),
+                        
+                           ],
                         ),
-                        const Spacer(flex: 1),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

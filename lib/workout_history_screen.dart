@@ -44,7 +44,10 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Workout History')),
+      appBar: AppBar(title: Text('Workout History', style: Theme.of(context)
+                  .textTheme
+                  .headlineLarge
+                  ?.copyWith(color: Color(0xFFC5AEF6)))),
       body: ListView.builder(
         itemCount: workouts.length,
         itemBuilder: (context, index) {
@@ -52,7 +55,22 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
             title: Text(workouts[index]['name']),
             trailing: IconButton(
               icon: Icon(Icons.delete),
-              onPressed: () => _deleteWorkout(index),
+              onPressed: () => showDialog(
+                builder: (context) => AlertDialog(
+                  title: Text('Delete workout?',  style: Theme.of(context).textTheme.bodyLarge),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          _deleteWorkout(index);
+                          Navigator.pop(context);
+                        },
+                        child: Text('Yes')),
+                    TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text('No'))
+                  ],
+                ), context: context,
+              ),
             ),
             onTap: () {
               Navigator.push(

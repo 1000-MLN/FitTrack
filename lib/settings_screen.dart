@@ -23,12 +23,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Настройки'),
+        title: Text('Settings'),
       ),
       body: ListView(
         children: [
           ListTile(
-            title: Text('Темная тема'),
+            title: Text('Dark theme'),
             trailing: Switch(
               value: isDarkMode,
               onChanged: (newValue) {
@@ -37,7 +37,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
           ),
           ListTile(
-            title: Text('Язык'),
+            title: Text('Language'),
             onTap: _changeLanguage,
           ),
         ],

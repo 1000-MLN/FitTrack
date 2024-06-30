@@ -8,11 +8,12 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   static List<Widget> _widgetOptions = <Widget>[
-    MainScreen(), 
     TimerScreen(), 
+        MainScreen(), 
+
     SettingsScreen(),
   ];
 
@@ -28,17 +29,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Главная',
-          ),
+         
           BottomNavigationBarItem(
             icon: Icon(Icons.timer),
-            label: 'Таймер',
+            label: 'Timer',
+          ),
+           BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Main',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Настройки',
+            label: 'Settings',
           ),
         ],
         currentIndex: _selectedIndex,
