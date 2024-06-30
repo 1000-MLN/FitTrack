@@ -17,14 +17,12 @@ void main() {
 class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Use ref.watch to listen to the theme changes
     final theme = ref.watch(themeProvider);
 
-    // Return MaterialApp with the current theme
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,
-        themeMode: theme==lightTheme?ThemeMode.light:ThemeMode.dark,
+      themeMode: theme == lightTheme ? ThemeMode.light : ThemeMode.dark,
       darkTheme: darkTheme,
       title: 'Workout App',
       initialRoute: '/',

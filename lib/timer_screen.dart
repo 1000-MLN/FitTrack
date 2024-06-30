@@ -28,7 +28,7 @@ class _TimerScreenState extends State<TimerScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 0), 
+      duration: Duration(seconds: 0),
     );
 
     _controller!.addStatusListener((status) {
@@ -105,7 +105,9 @@ class _TimerScreenState extends State<TimerScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Таймер'),
+        title: Text('Таймер', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Center(
         child: Column(
@@ -116,7 +118,7 @@ class _TimerScreenState extends State<TimerScreen>
               painter: TimerPainter(
                 animation: _controller!,
                 backgroundColor: Colors.grey[200]!,
-                color: Colors.blue,
+                color:  Color(0xFFC5AEF6),
               ),
             ),
             SizedBox(height: 20),
@@ -125,15 +127,16 @@ class _TimerScreenState extends State<TimerScreen>
               children: <Widget>[
                 SizedBox(
                   width: 100,
-                  height: 200, 
+                  height: 200,
                   child: ListWheelScrollView(
                     itemExtent: 60,
                     diameterRatio: 1.5,
                     physics: FixedExtentScrollPhysics(),
                     children: List.generate(60, (index) {
                       return Center(
-                          child:
-                              Text('$index', style: TextStyle(fontSize: 20)));
+                          child: Text('$index',
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.black)));
                     }),
                     onSelectedItemChanged: (value) {
                       setState(() {
@@ -142,18 +145,19 @@ class _TimerScreenState extends State<TimerScreen>
                     },
                   ),
                 ),
-                Text(':', style: TextStyle(fontSize: 24)),
+                Text(':', style: TextStyle(fontSize: 24, color: Colors.black)),
                 SizedBox(
                   width: 100,
-                  height: 200, 
+                  height: 200,
                   child: ListWheelScrollView(
                     itemExtent: 60,
                     diameterRatio: 1.5,
                     physics: FixedExtentScrollPhysics(),
                     children: List.generate(60, (index) {
                       return Center(
-                          child:
-                              Text('$index', style: TextStyle(fontSize: 20)));
+                          child: Text('$index',
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.black)));
                     }),
                     onSelectedItemChanged: (value) {
                       setState(() {
@@ -167,22 +171,22 @@ class _TimerScreenState extends State<TimerScreen>
             SizedBox(height: 20),
             Text(
               'Выбранное время: $_minutes мин. $_seconds сек.',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20, color: Colors.black),
             ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.play_arrow),
+                  icon: Icon(Icons.play_arrow, color: Color(0xFFC5AEF6)),
                   onPressed: _isActive ? null : _startTimer,
                 ),
                 IconButton(
-                  icon: Icon(Icons.pause),
+                  icon: Icon(Icons.pause, color: Color(0xFFC5AEF6)),
                   onPressed: _isActive ? _pauseTimer : null,
                 ),
                 IconButton(
-                  icon: Icon(Icons.stop),
+                  icon: Icon(Icons.stop, color: Color(0xFFC5AEF6)),
                   onPressed: _resetTimer,
                 ),
               ],

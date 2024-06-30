@@ -11,7 +11,7 @@ class MainScreen extends StatelessWidget {
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-           Container(
+          Container(
             color: Theme.of(context).cardColor,
           ),
           Container(
@@ -29,8 +29,28 @@ class MainScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Main Screen', style: TextStyle(fontSize: 24)),
+                Text(
+                  'Main Screen',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 20),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFFC5AEF6),
+                    foregroundColor: Colors.white, 
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    textStyle: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -39,9 +59,24 @@ class MainScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text('Создать новую тренировку'),
+                  child: Text(
+                    'Создать новую тренировку',
+                  ),
                 ),
+                SizedBox(height: 20),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFFC5AEF6), 
+                    foregroundColor: Colors.white, 
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    textStyle: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -50,7 +85,9 @@ class MainScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text('История тренировок'),
+                  child: Text(
+                    'История тренировок',
+                  ),
                 ),
               ],
             ),
