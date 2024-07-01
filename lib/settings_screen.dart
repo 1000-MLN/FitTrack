@@ -50,10 +50,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               },
             ),
           ),
-          ListTile(
-            title: const Text('Language'),
-            onTap: _changeLanguage,
-          ),
         ],
       ),
     );

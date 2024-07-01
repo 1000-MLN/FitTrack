@@ -415,6 +415,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             );
           } else if (sections.isNotEmpty) {
             return ExpansionTile(
+              initiallyExpanded: true,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

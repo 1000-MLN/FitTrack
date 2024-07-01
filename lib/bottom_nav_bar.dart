@@ -30,18 +30,29 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        useLegacyColorScheme: false,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+
             icon: Icon(FinalCustomIcons.timer),
             label: 'Timer',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+
+
             icon: Icon(FinalCustomIcons.home),
             label: 'Main',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+
             icon: Icon(FinalCustomIcons.settings),
             label: 'Settings',
           ),
