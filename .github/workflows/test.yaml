@@ -10,7 +10,7 @@ on:
 
 jobs:
     test:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         steps:
             - uses: actions/checkout@v4
             - uses: subosito/flutter-action@v2
@@ -26,9 +26,9 @@ jobs:
             - run: flutter analyze  --no-fatal-warnings --no-fatal-infos lib/main.dart               
 
             - uses: bluefireteam/flutter-gh-pages@v7
-              # with:
-              #   baseHref: /FitTrack/
-              #   customArgs: --target="lib/main.dart"
+              with:
+                baseHref: /FitTrack/
+                customArgs: --target="lib/main.dart"
     
     build-windows:
         runs-on: windows-latest
