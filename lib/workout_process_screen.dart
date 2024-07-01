@@ -7,9 +7,10 @@ class WorkoutProcessScreen extends StatefulWidget {
   final List<dynamic> exercises;
   final String workoutName;
 
-  WorkoutProcessScreen({required this.workoutName, required this.exercises});
+  const WorkoutProcessScreen({super.key, required this.workoutName, required this.exercises});
 
   @override
+  // ignore: library_private_types_in_public_api
   _WorkoutProcessScreenState createState() => _WorkoutProcessScreenState();
 }
 
@@ -28,7 +29,7 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 0),
+      duration: const Duration(seconds: 0),
     );
     setupExercise();
   }
@@ -155,7 +156,7 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen>
                 height: 400,
                 child: Center(
                   child: CustomPaint(
-                    size: Size(200, 200),
+                    size: const Size(200, 200),
                     painter: WorkoutTimerPainter(
                       animation: _controller!,
                       backgroundColor: Theme.of(context).secondaryHeaderColor,
@@ -178,6 +179,7 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen>
                 IntrinsicWidth(
                   child: InkWell(
                     borderRadius: BorderRadius.circular(30),
+                    onTap: isRunning ? stopExercise : startExercise,
                     child: Container(
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
@@ -194,12 +196,11 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen>
                             ?.copyWith(color: Colors.white),
                       )),
                     ),
-                    onTap: isRunning ? stopExercise : startExercise,
                   ),
                 ),
               ],
             ),
-            Spacer(flex: 1),
+            const Spacer(flex: 1),
           ],
         ),
       ),

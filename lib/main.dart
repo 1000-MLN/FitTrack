@@ -13,10 +13,12 @@ import 'section_detail_screen.dart';
 
 void main() {
   setPathUrlStrategy();
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(themeProvider);
@@ -29,13 +31,13 @@ class MyApp extends ConsumerWidget {
       title: 'Workout App',
       initialRoute: '/start',
       routes: {
-        '/welcome': (context) => WelcomeScreen(),
-        '/start': (context) => StartScreen(),
-        '/home': (context) => BottomNavBar(),
+        '/welcome': (context) => const WelcomeScreen(),
+        '/start': (context) => const StartScreen(),
+        '/home': (context) => const BottomNavBar(),
         '/createWorkout': (context) => CreateWorkoutScreen(),
-        '/workoutHistory': (context) => WorkoutHistoryScreen(workouts: []),
-        '/workoutDetail': (context) => WorkoutDetailScreen(workoutName: ''),
-        '/sectionDetail': (context) => SectionDetailScreen(section: {}),
+        '/workoutHistory': (context) => const WorkoutHistoryScreen(workouts: []),
+        '/workoutDetail': (context) => const WorkoutDetailScreen(workoutName: ''),
+        '/sectionDetail': (context) => const SectionDetailScreen(section: {}),
       },
     );
   }

@@ -3,7 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fit_track/data/provider.dart'; // Assuming your ThemeProvider is defined here
 
 class SettingsScreen extends ConsumerStatefulWidget {
+  const SettingsScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _SettingsScreenState createState() => _SettingsScreenState();
 }
 
@@ -13,7 +16,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   void _changeLanguage() {
-    // Your logic for changing language
   }
 
   @override
@@ -38,9 +40,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
       body: ListView(
         children: [
-          Padding(padding: EdgeInsets.only(top: 20)),
+          const Padding(padding: EdgeInsets.only(top: 20)),
           ListTile(
-            title: Text('Dark theme'),
+            title: const Text('Dark theme'),
             trailing: Switch(
               value: isDarkMode,
               onChanged: (newValue) {
@@ -49,7 +51,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
           ),
           ListTile(
-            title: Text('Language'),
+            title: const Text('Language'),
             onTap: _changeLanguage,
           ),
         ],

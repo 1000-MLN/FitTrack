@@ -44,7 +44,7 @@ class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(padding: EdgeInsets.only(top: 20)),
+                const Padding(padding: EdgeInsets.only(top: 20)),
                 Container(
                   alignment: Alignment.center,
                   width: 370,

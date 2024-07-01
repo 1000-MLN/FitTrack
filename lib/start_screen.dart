@@ -45,11 +45,11 @@ class _StartScreen extends ConsumerState<StartScreen> {
               padding: const EdgeInsets.all(26.0),
               child: Column(
                 children: [
-                  Padding(padding: EdgeInsets.only(top: 15)),
+                  const Padding(padding: EdgeInsets.only(top: 15)),
                   Text("Fit Track", style: theme.textTheme.displayLarge?.copyWith(color: Colors.white, fontSize: 52)),
                   Expanded(
                       flex: 11,
-                      child: Container(
+                      child: SizedBox(
                         height: 500,
                         child: Image.asset('assets/images/base.png'),
                       )),

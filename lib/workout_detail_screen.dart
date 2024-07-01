@@ -20,6 +20,7 @@ class WorkoutDetailScreen extends StatefulWidget {
       this.id});
 
   @override
+  // ignore: library_private_types_in_public_api
   _WorkoutDetailScreenState createState() => _WorkoutDetailScreenState();
 }
 
@@ -287,6 +288,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
     workoutsUpdated.add(jsonEncode(workoutData));
 
     await prefs.setStringList('workouts', workoutsUpdated);
+    // ignore: use_build_context_synchronously
     Navigator.pushNamed(context, '/home');
   }
 
@@ -294,7 +296,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Delete Section?'),
+        title: const Text('Delete Section?'),
         actions: [
           TextButton(
             onPressed: () {
@@ -303,11 +305,11 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
               });
               Navigator.pop(context);
             },
-            child: Text('Yes'),
+            child: const Text('Yes'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('No'),
+            child: const Text('No'),
           ),
         ],
       ),
@@ -396,13 +398,13 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                         showDialog(
                             context: context,
                             builder: (builder) => AlertDialog(
-                                  title: Center(child: Text("Error")),
-                                  content: Text(
+                                  title: const Center(child: Text("Error")),
+                                  content: const Text(
                                       "Please add exercises to the workout"),
                                   actions: [
                                     ElevatedButton(
                                         onPressed: () => Navigator.pop(context),
-                                        child: Text("Ok"))
+                                        child: const Text("Ok"))
                                   ],
                                 ));
                       }
@@ -437,12 +439,12 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: Icon(FinalCustomIcons.edit),
+                              icon: const Icon(FinalCustomIcons.edit),
                               onPressed: () =>
                                   _editExercise(index, exerciseIndex),
                             ),
                             IconButton(
-                              icon: Icon(FinalCustomIcons.delete),
+                              icon: const Icon(FinalCustomIcons.delete),
                               onPressed: () {
                                 setState(() {
                                   sections[index]['exercises']
@@ -482,7 +484,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
         backgroundColor: Theme.of(context).cardColor,
         tooltip: "Add section",
         onPressed: _addSection,
-        child: Icon(FinalCustomIcons.add,
+        child: const Icon(FinalCustomIcons.add,
             color: Color.fromARGB(255, 241, 241, 241)),
       ),
     );

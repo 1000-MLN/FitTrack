@@ -4,7 +4,10 @@ import 'package:fit_track/workout_detail_screen.dart';
 import 'dart:convert';
 
 class HistoryScreen extends StatefulWidget {
+  const HistoryScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _HistoryScreenState createState() => _HistoryScreenState();
 }
 
@@ -31,7 +34,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Workout History')),
+      appBar: AppBar(title: const Text('Workout History')),
       body: ListView.builder(
         itemCount: workouts.length,
         itemBuilder: (context, index) {

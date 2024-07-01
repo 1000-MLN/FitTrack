@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SectionDetailScreen extends StatelessWidget {
   final Map<String, dynamic> section;
 
-  SectionDetailScreen({required this.section});
+  const SectionDetailScreen({super.key, required this.section});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +16,12 @@ class SectionDetailScreen extends StatelessWidget {
             title: Text(section['exercises'][index]['name']),
             subtitle: Text('Reps: ${section['exercises'][index]['reps']} Time: ${section['exercises'][index]['time']} seconds'),
             trailing: IconButton(
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
               onPressed: () {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: Text('Delete Exercise?'),
+                    title: const Text('Delete Exercise?'),
                     actions: [
                       TextButton(
                         onPressed: () {
@@ -29,11 +29,11 @@ class SectionDetailScreen extends StatelessWidget {
                           Navigator.pop(context);
                           Navigator.pop(context);
                         },
-                        child: Text('Yes'),
+                        child: const Text('Yes'),
                       ),
                       TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: Text('No'),
+                        child: const Text('No'),
                       ),
                     ],
                   ),

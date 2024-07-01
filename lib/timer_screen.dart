@@ -3,13 +3,16 @@ import 'dart:async';
 import 'dart:math' as math;
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: TimerScreen(),
   ));
 }
 
 class TimerScreen extends StatefulWidget {
+  const TimerScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _TimerScreenState createState() => _TimerScreenState();
 }
 
@@ -28,7 +31,7 @@ class _TimerScreenState extends State<TimerScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 0),
+      duration: const Duration(seconds: 0),
     );
 
     _controller!.addStatusListener((status) {
@@ -49,7 +52,7 @@ class _TimerScreenState extends State<TimerScreen>
       _isActive = true;
     });
 
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_seconds > 0) {
           _seconds--;
@@ -125,14 +128,14 @@ class _TimerScreenState extends State<TimerScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CustomPaint(
-              size: Size(200, 200),
+              size: const Size(200, 200),
               painter: TimerPainter(
                 animation: _controller!,
                 backgroundColor: Theme.of(context).secondaryHeaderColor,
                 color:  Theme.of(context).cardColor,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -142,7 +145,7 @@ class _TimerScreenState extends State<TimerScreen>
                   child: ListWheelScrollView(
                     itemExtent: 60,
                     diameterRatio: 1.5,
-                    physics: FixedExtentScrollPhysics(),
+                    physics: const FixedExtentScrollPhysics(),
                     children: List.generate(60, (index) {
                       return Center(
                           child: Text('$index',
@@ -162,7 +165,7 @@ class _TimerScreenState extends State<TimerScreen>
                   child: ListWheelScrollView(
                     itemExtent: 60,
                     diameterRatio: 1.5,
-                    physics: FixedExtentScrollPhysics(),
+                    physics: const FixedExtentScrollPhysics(),
                     children: List.generate(60, (index) {
                       return Center(
                           child: Text('$index',
@@ -177,12 +180,12 @@ class _TimerScreenState extends State<TimerScreen>
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'Selected time: $_minutes min. $_seconds sec.',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

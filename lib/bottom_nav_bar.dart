@@ -8,16 +8,17 @@ class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BottomNavBarState createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 1;
 
-  static List<Widget> _widgetOptions = <Widget>[
-    TimerScreen(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const TimerScreen(),
     MainScreen(),
-    SettingsScreen(),
+    const SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {

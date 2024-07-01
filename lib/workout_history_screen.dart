@@ -7,8 +7,9 @@ import 'dart:convert';
 
 class WorkoutHistoryScreen extends StatefulWidget {
   final List<Map<String, dynamic>> workouts;
-  WorkoutHistoryScreen({required this.workouts});
+  const WorkoutHistoryScreen({super.key, required this.workouts});
   @override
+  // ignore: library_private_types_in_public_api
   _WorkoutHistoryScreenState createState() => _WorkoutHistoryScreenState();
 }
 
@@ -53,7 +54,7 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
           return ListTile(
             title: Text(workouts[index]['name']),
             trailing: IconButton(
-              icon: Icon(FinalCustomIcons.delete),
+              icon: const Icon(FinalCustomIcons.delete),
               onPressed: () => showDialog(
                 builder: (context) => AlertDialog(
                   title: Text('Delete workout?',  style: Theme.of(context).textTheme.bodyLarge),
@@ -63,10 +64,10 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
                           _deleteWorkout(index);
                           Navigator.pop(context);
                         },
-                        child: Text('Yes')),
+                        child: const Text('Yes')),
                     TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: Text('No'))
+                        child: const Text('No'))
                   ],
                 ), context: context,
               ),

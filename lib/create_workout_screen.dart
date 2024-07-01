@@ -5,6 +5,8 @@ import 'workout_detail_screen.dart';
 class CreateWorkoutScreen extends StatelessWidget {
   final TextEditingController _workoutNameController = TextEditingController();
 
+  CreateWorkoutScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
