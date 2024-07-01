@@ -56,5 +56,9 @@ FitTrack is a Flutter application designed to help users create, edit, and track
 - **final_custom_icons_icons.dart:** Custom icons used in the app.
 - **settings_screen.dart:** Screen for changing app settings, including theme switching.
 
-
-![Demo GIF](assets/screens/1719864210043658.gif)
+<img src="assets/screens/1719864210043658.gif" width="300" alt="Welcome screen">
+<img src="assets/screens/1719864388550482.gif" width="300" alt="Add workout">
+<img src="assets/screens/1719864706338576.gif" width="300" alt="Start workout">
+<img src="assets/screens/1719864861282143.gif" width="300" alt="Editing workout">
+<img src="assets/screens/1719864920129963.gif" width="300" alt="Saving in history after reload">
+<img src="assets/screens/1719865065752128.gif" width="300" alt="Change of theme">
