@@ -1,6 +1,6 @@
 # FitTrack Workout App
 
-- FitTrack is a Flutter application designed to help users create, edit, and track their workouts. The app provides a simple and intuitive interface for managing workout routines and viewing workout history.
+FitTrack is a Flutter application designed to help users create, edit, and track their workouts. The app provides a simple and intuitive interface for managing workout routines and viewing workout history.
 
 ## Features
 
