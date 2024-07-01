@@ -1,30 +1,27 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:fit_track/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fit_track/start_screen.dart'; // Adjust the import path as necessary.
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget( MyApp());
+  testWidgets('Start screen test', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(home: StartScreen()),
+      ),
+    );
+    // Verify if StartScreen shows the expected texts.
+    expect(find.text("Fit Track"), findsOneWidget);
+    // If "Nice to meet you" is not supposed to be found initially, this is correct:
+    expect(find.text('Nice to meet you'), findsNothing);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    //Try to go to the next page without input name
+    await tester.tap(find.text('Continue'));
+    await tester.pump(); // This simulates the passing of time after an action.
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify that we left on StartScreen page and not go to the next page without input name
+    expect(find.text('Fit Track'), findsOneWidget);
+    expect(find.text('Nice to meet you'), findsNothing);
+    expect(find.text('Let\'s start!'), findsNothing);
   });
 }

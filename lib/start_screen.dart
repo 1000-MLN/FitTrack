@@ -51,7 +51,7 @@ class _StartScreen extends ConsumerState<StartScreen> {
                       flex: 11,
                       child: Container(
                         height: 500,
-                        child: Image.asset('images/base.png'),
+                        child: Image.asset('assets/images/base.png'),
                       )),
                   const Padding(padding: EdgeInsets.all(16)),
                   const Spacer(flex: 1),

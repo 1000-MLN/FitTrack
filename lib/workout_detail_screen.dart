@@ -1,3 +1,4 @@
+import 'package:fit_track/models/functions.dart';
 import 'package:fit_track/ui/widgets/appbar.dart';
 import 'package:fit_track/ui/widgets/final_custom_icons_icons.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             TextButton(
               onPressed: () {
                 if (_sectionNameController.text.isNotEmpty &&
-                    _setsController.text.isNotEmpty) {
+                    isDigitsOnly(_setsController.text)) {
                   setState(() {
                     sections.add({
                       'name': _sectionNameController.text,
@@ -117,7 +118,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             TextButton(
               onPressed: () {
                 if (_sectionNameController.text.isNotEmpty &&
-                    _setsController.text.isNotEmpty) {
+                      isDigitsOnly(_setsController.text)) {
                   setState(() {
                     sections[sectionIndex]['name'] =
                         _sectionNameController.text;
@@ -176,8 +177,8 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             TextButton(
               onPressed: () {
                 if (_exerciseNameController.text.isNotEmpty &&
-                    _repsController.text.isNotEmpty &&
-                    _timeController.text.isNotEmpty) {
+                    isDigitsOnly(_repsController.text) &&
+                    isDigitsOnly(_timeController.text)) {
                   setState(() {
                     sections[sectionIndex]['exercises'].add({
                       'name': _exerciseNameController.text,
@@ -243,8 +244,8 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             TextButton(
               onPressed: () {
                 if (_exerciseNameController.text.isNotEmpty &&
-                    _repsController.text.isNotEmpty &&
-                    _timeController.text.isNotEmpty) {
+                   isDigitsOnly(_repsController.text) &&
+                    isDigitsOnly(_timeController.text)) {
                   setState(() {
                     sections[sectionIndex]['exercises'][exerciseIndex] = {
                       'name': _exerciseNameController.text,

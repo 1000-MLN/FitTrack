@@ -30,10 +30,11 @@ class MainScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                  Expanded(
-                    flex: 6,
+                    flex: 16,
                     child: Container(
-                      width: 500,
+                      alignment: Alignment.center,
                       height: 500,
+                      child: Image.asset('assets/images/base.png'),
                     )),
                 const Padding(padding: EdgeInsets.all(16)),
                 const Spacer(flex: 1),
