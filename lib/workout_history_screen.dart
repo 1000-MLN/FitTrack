@@ -1,3 +1,5 @@
+import 'package:fit_track/ui/widgets/appbar.dart';
+import 'package:fit_track/ui/widgets/final_custom_icons_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'workout_detail_screen.dart';
@@ -44,17 +46,14 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Workout History', style: Theme.of(context)
-                  .textTheme
-                  .headlineLarge
-                  ?.copyWith(color: Color(0xFFC5AEF6)))),
+      appBar: appBarCustom(context, "Workout History"),
       body: ListView.builder(
         itemCount: workouts.length,
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(workouts[index]['name']),
             trailing: IconButton(
-              icon: Icon(Icons.delete),
+              icon: Icon(FinalCustomIcons.delete),
               onPressed: () => showDialog(
                 builder: (context) => AlertDialog(
                   title: Text('Delete workout?',  style: Theme.of(context).textTheme.bodyLarge),

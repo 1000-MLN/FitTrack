@@ -1,3 +1,4 @@
+import 'package:fit_track/ui/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math' as math;
@@ -105,9 +106,20 @@ class _TimerScreenState extends State<TimerScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Timer', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        leading: Container(),
+      backgroundColor: Colors.transparent,
+      title: Padding(
+        padding: const EdgeInsets.only(top: 16.0),
+        child: Text(
+         "Timer",
+          style: Theme.of(context)
+              .textTheme
+              .headlineLarge
+              ?.copyWith(color: const Color(0xFFC5AEF6)),
+        ),
+      ),
+    
+      
       ),
       body: Center(
         child: Column(
@@ -117,8 +129,8 @@ class _TimerScreenState extends State<TimerScreen>
               size: Size(200, 200),
               painter: TimerPainter(
                 animation: _controller!,
-                backgroundColor: Colors.grey[200]!,
-                color:  Color(0xFFC5AEF6),
+                backgroundColor: Theme.of(context).secondaryHeaderColor,
+                color:  Theme.of(context).cardColor,
               ),
             ),
             SizedBox(height: 20),
@@ -135,8 +147,7 @@ class _TimerScreenState extends State<TimerScreen>
                     children: List.generate(60, (index) {
                       return Center(
                           child: Text('$index',
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.black)));
+                              style: Theme.of(context).textTheme.headlineMedium));
                     }),
                     onSelectedItemChanged: (value) {
                       setState(() {
@@ -145,7 +156,7 @@ class _TimerScreenState extends State<TimerScreen>
                     },
                   ),
                 ),
-                Text(':', style: TextStyle(fontSize: 24, color: Colors.black)),
+                Text(':', style: Theme.of(context).textTheme.titleMedium),
                 SizedBox(
                   width: 100,
                   height: 200,
@@ -156,8 +167,7 @@ class _TimerScreenState extends State<TimerScreen>
                     children: List.generate(60, (index) {
                       return Center(
                           child: Text('$index',
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.black)));
+                              style:Theme.of(context).textTheme.headlineMedium));
                     }),
                     onSelectedItemChanged: (value) {
                       setState(() {
@@ -171,22 +181,22 @@ class _TimerScreenState extends State<TimerScreen>
             SizedBox(height: 20),
             Text(
               'Selected time: $_minutes min. $_seconds sec.',
-              style: TextStyle(fontSize: 20, color: Colors.black),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.play_arrow, color: Color(0xFFC5AEF6)),
+                  icon: Icon(Icons.play_arrow, color: Theme.of(context).cardColor),
                   onPressed: _isActive ? null : _startTimer,
                 ),
                 IconButton(
-                  icon: Icon(Icons.pause, color: Color(0xFFC5AEF6)),
+                  icon: Icon(Icons.pause, color: Theme.of(context).cardColor),
                   onPressed: _isActive ? _pauseTimer : null,
                 ),
                 IconButton(
-                  icon: Icon(Icons.stop, color: Color(0xFFC5AEF6)),
+                  icon: Icon(Icons.stop, color: Theme.of(context).cardColor),
                   onPressed: _resetTimer,
                 ),
               ],

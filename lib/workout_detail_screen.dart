@@ -1,3 +1,5 @@
+import 'package:fit_track/ui/widgets/appbar.dart';
+import 'package:fit_track/ui/widgets/final_custom_icons_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -41,12 +43,15 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
+                
                 controller: _sectionNameController,
-                decoration: const InputDecoration(labelText: 'Section Name'),
+                decoration: const InputDecoration(labelText: 'Section Name',
+                  border: InputBorder.none,
+                ),
               ),
               TextField(
                 controller: _setsController,
-                decoration: const InputDecoration(labelText: 'Number of Sets'),
+                decoration: const InputDecoration(labelText: 'Number of Sets' ,border: InputBorder.none,),
                 keyboardType: TextInputType.number,
               ),
             ],
@@ -89,11 +94,15 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             children: [
               TextField(
                 controller: _sectionNameController,
-                decoration: const InputDecoration(labelText: 'Section Name'),
+                decoration: const InputDecoration(labelText: 'Section Name',
+                  border: InputBorder.none,
+                ),
               ),
               TextField(
                 controller: _setsController,
-                decoration: const InputDecoration(labelText: 'Number of Sets'),
+                decoration: const InputDecoration(labelText: 'Number of Sets',
+                  border: InputBorder.none,
+                ),
                 keyboardType: TextInputType.number,
               ),
             ],
@@ -134,17 +143,23 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             children: [
               TextField(
                 controller: _exerciseNameController,
-                decoration: const InputDecoration(labelText: 'Exercise Name'),
+                decoration: const InputDecoration(labelText: 'Exercise Name',
+                  border: InputBorder.none,
+                ),
               ),
               TextField(
                 controller: _repsController,
-                decoration: const InputDecoration(labelText: 'Number of Reps'),
+                decoration: const InputDecoration(labelText: 'Number of Reps',
+                  border: InputBorder.none,
+                ),
                 keyboardType: TextInputType.number,
               ),
               TextField(
                 controller: _timeController,
                 decoration:
-                    const InputDecoration(labelText: 'Time (in seconds)'),
+                    const InputDecoration(labelText: 'Time (in seconds)',
+                  border: InputBorder.none,
+                ),
                 keyboardType: TextInputType.number,
               ),
             ],
@@ -193,17 +208,23 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             children: [
               TextField(
                 controller: _exerciseNameController,
-                decoration: const InputDecoration(labelText: 'Exercise Name'),
+                decoration: const InputDecoration(labelText: 'Exercise Name',
+                  border: InputBorder.none,
+                ),
               ),
               TextField(
                 controller: _repsController,
-                decoration: const InputDecoration(labelText: 'Number of Reps'),
+                decoration: const InputDecoration(labelText: 'Number of Reps',
+                  border: InputBorder.none,
+                ),
                 keyboardType: TextInputType.number,
               ),
               TextField(
                 controller: _timeController,
                 decoration:
-                    const InputDecoration(labelText: 'Time (in seconds)'),
+                    const InputDecoration(labelText: 'Time (in seconds)',
+                  border: InputBorder.none,
+                ),
                 keyboardType: TextInputType.number,
               ),
             ],
@@ -285,79 +306,174 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.workoutName),
+      appBar: appBarCustom(
+        context,
+        widget.workoutName,
         actions: [
-          TextButton(
-            onPressed: _saveWorkout,
-            child: const Text(
-              'Save',
-              style: TextStyle(color: Colors.white),
-            ),
+          Padding(
+            padding: const EdgeInsets.only(right: 10, top: 16),
+            child: InkWell(
+                borderRadius: BorderRadius.circular(20),
+                onTap: () {
+                  _saveWorkout();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                  child: Center(
+                      child: Text(
+                    'Save',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: Colors.white),
+                  )),
+                )),
+            // child: IconButton(
+            //   onPressed: _saveWorkout,
+            //   icon: Icon(FinalCustomIcons.save),
+            // ),
           ),
         ],
       ),
       body: ListView.builder(
-        itemCount: sections.length,
+        itemCount: sections.length + 1,
         itemBuilder: (context, index) {
-          return ExpansionTile(
-            title: Text(sections[index]['name']),
-            children: [
-              Column(
+
+          if (index == sections.length && sections.isNotEmpty) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IntrinsicWidth(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(30),
+                     child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor,
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 10),
+                                    child: Center(
+                                        child: Text(
+                                      'Start workout!',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(color: Colors.white),
+                                    )),
+                                  ),
+                    onTap: () {
+                      if (sections
+                          .expand((section) => section['exercises'])
+                          .toList()
+                          .isNotEmpty) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WorkoutProcessScreen(
+                              workoutName: widget.workoutName,
+                              exercises: sections
+                                  .expand((section) => section['exercises'])
+                                  .toList(),
+                            ),
+                          ),
+                        );
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (builder) => AlertDialog(
+                                  title: Center(child: Text("Error")),
+                                  content: Text(
+                                      "Please add exercises to the workout"),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("Ok"))
+                                  ],
+                                ));
+                      }
+                    },
+                  ),
+                ),
+              ],
+            );
+          } else if (sections.isNotEmpty) {
+            return ExpansionTile(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  for (int exerciseIndex = 0;
-                      exerciseIndex < sections[index]['exercises'].length;
-                      exerciseIndex++)
-                    ListTile(
-                      title: Text(sections[index]['exercises'][exerciseIndex]
-                          ['name']),
-                      subtitle: Text(
-                          'Reps: ${sections[index]['exercises'][exerciseIndex]['reps']} Time: ${sections[index]['exercises'][exerciseIndex]['time']} seconds'),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () => _editExercise(index, exerciseIndex),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              setState(() {
-                                sections[index]['exercises']
-                                    .removeAt(exerciseIndex);
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ButtonBar(
-                    alignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        onPressed: () => _addExercise(index),
-                        child: const Text('Add Exercise'),
-                      ),
-                      TextButton(
-                        onPressed: () => _editSection(index),
-                        child: const Text('Edit Section'),
-                      ),
-                      TextButton(
-                        onPressed: () => _deleteSection(index),
-                        child: const Text('Delete Section'),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40.0),
+                    child: Center(child: Text(sections[index]['name'])),
                   ),
                 ],
               ),
-            ],
-          );
+              children: [
+                Column(
+                  children: [
+                    for (int exerciseIndex = 0;
+                        exerciseIndex < sections[index]['exercises'].length;
+                        exerciseIndex++)
+                      ListTile(
+                        title: Text(sections[index]['exercises'][exerciseIndex]
+                            ['name']),
+                        subtitle: Text(
+                            'Reps: ${sections[index]['exercises'][exerciseIndex]['reps']} Time: ${sections[index]['exercises'][exerciseIndex]['time']} seconds'),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(FinalCustomIcons.edit),
+                              onPressed: () =>
+                                  _editExercise(index, exerciseIndex),
+                            ),
+                            IconButton(
+                              icon: Icon(FinalCustomIcons.delete),
+                              onPressed: () {
+                                setState(() {
+                                  sections[index]['exercises']
+                                      .removeAt(exerciseIndex);
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                          onPressed: () => _addExercise(index),
+                          child: const Text('Add Exercise'),
+                        ),
+                        TextButton(
+                          onPressed: () => _editSection(index),
+                          child: const Text('Edit Section'),
+                        ),
+                        TextButton(
+                          onPressed: () => _deleteSection(index),
+                          child: const Text('Delete Section'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            );
+          }
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).cardColor,
+        tooltip: "Add section",
         onPressed: _addSection,
-        child: const Icon(Icons.add),
+        child: Icon(FinalCustomIcons.add,
+            color: Color.fromARGB(255, 241, 241, 241)),
       ),
     );
   }

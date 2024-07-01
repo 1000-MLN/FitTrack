@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math' as math;
+import 'package:fit_track/ui/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutProcessScreen extends StatefulWidget {
@@ -104,8 +105,7 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen>
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
+                Navigator.pushNamed(context, '/home');
               },
               child: const Text('OK'),
             ),
@@ -126,65 +126,80 @@ class _WorkoutProcessScreenState extends State<WorkoutProcessScreen>
   Widget build(BuildContext context) {
     final currentExercise = widget.exercises[currentExerciseIndex];
     return Scaffold(
-      appBar: AppBar(title: Text(widget.workoutName)),
+      appBar: appBarCustom(context, widget.workoutName),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  currentExercise['name'],
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  'Reps: $currentReps',
-                  style: const TextStyle(fontSize: 20),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 400,
-              height: 400,
-              child: Center(
-                child: CustomPaint(
-                  size: Size(200, 200),
-                  painter: WorkoutTimerPainter(
-                    animation: _controller!,
-                    backgroundColor: Colors.grey[300]!,
-                    color: Color(0xFFC5AEF6),
+            Expanded(
+              flex: 1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    currentExercise['name'],
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
-                  child: Center(
-                    child: Text(
-                      '$remainingTime sec',
-                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Text(
+                    'Reps: $currentReps',
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 7,
+              child: SizedBox(
+                width: 400,
+                height: 400,
+                child: Center(
+                  child: CustomPaint(
+                    size: Size(200, 200),
+                    painter: WorkoutTimerPainter(
+                      animation: _controller!,
+                      backgroundColor: Theme.of(context).secondaryHeaderColor,
+                      color: Theme.of(context).cardColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '$remainingTime sec',
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFC5AEF6),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IntrinsicWidth(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(30),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 20),
+                      child: Center(
+                          child: Text(
+                        isRunning ? 'Stop' : 'Start',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: Colors.white),
+                      )),
+                    ),
+                    onTap: isRunning ? stopExercise : startExercise,
+                  ),
                 ),
-                textStyle: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onPressed: isRunning ? stopExercise : startExercise,
-              child: Text(
-                isRunning ? 'Stop' : 'Start',
-              ),
+              ],
             ),
+            Spacer(flex: 1),
           ],
         ),
       ),

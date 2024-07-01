@@ -2,6 +2,7 @@ import 'package:fit_track/data/provider.dart';
 import 'package:fit_track/ui/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'start_screen.dart';
 import 'welcome_screen.dart';
 import 'bottom_nav_bar.dart';
@@ -11,6 +12,7 @@ import 'workout_detail_screen.dart';
 import 'section_detail_screen.dart';
 
 void main() {
+  setPathUrlStrategy();
   runApp(ProviderScope(child: MyApp()));
 }
 
@@ -34,7 +36,6 @@ class MyApp extends ConsumerWidget {
         '/workoutHistory': (context) => WorkoutHistoryScreen(workouts: []),
         '/workoutDetail': (context) => WorkoutDetailScreen(workoutName: ''),
         '/sectionDetail': (context) => SectionDetailScreen(section: {}),
-        
       },
     );
   }

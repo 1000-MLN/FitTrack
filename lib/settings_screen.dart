@@ -23,10 +23,22 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+          leading: Container(),
+        backgroundColor: Colors.transparent,
+        title: Padding(
+          padding: const EdgeInsets.only(top: 14.0),
+          child: Text(
+            "Settings",
+            style: Theme.of(context)
+                .textTheme
+                .headlineLarge
+                ?.copyWith(color: const Color(0xFFC5AEF6)),
+          ),
+        ),
       ),
       body: ListView(
         children: [
+          Padding(padding: EdgeInsets.only(top: 20)),
           ListTile(
             title: Text('Dark theme'),
             trailing: Switch(

@@ -1,3 +1,5 @@
+import 'package:fit_track/ui/widgets/appbar.dart';
+import 'package:fit_track/ui/widgets/final_custom_icons_icons.dart';
 import 'package:flutter/material.dart';
 import 'workout_detail_screen.dart';
 
@@ -7,18 +9,7 @@ class CreateWorkoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Align(
-          alignment: Alignment.centerLeft,
-          child: IconButton(
-              icon: Icon(Icons.arrow_back), 
-              onPressed: () {
-                Navigator.of(context).pop(); // Manually handle the navigation
-              },),
-        ),
-  
-        backgroundColor: Colors.transparent,
-        title: Text('New workout', style: Theme.of(context).textTheme.headlineLarge?.copyWith(color:  Color(0xFFC5AEF6)) ,)),
+      appBar: appBarCustom(context, "New Workout"),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -26,12 +17,12 @@ class CreateWorkoutScreen extends StatelessWidget {
           children: [
             TextField(
               controller: _workoutNameController,
-              decoration: InputDecoration(
+              decoration:  InputDecoration(
                 labelText: 'Workout Name',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
              IntrinsicWidth(
               child: InkWell(
                   borderRadius: BorderRadius.circular(30),

@@ -44,17 +44,19 @@ class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(padding: EdgeInsets.only(top: 52)),
+                Padding(padding: EdgeInsets.only(top: 20)),
                 Text(
+                  maxLines: 2,
                   "Nice to meet you, ${name.name}!",
-                  style: theme.textTheme.headlineLarge?.copyWith(color: Colors.white),
+                  style: theme.textTheme.displayLarge?.copyWith(color: Colors.white),
                 ),
                 Expanded(
-                    flex: 10,
-                    child: Container(
-                        width: 500, height: 500, color: Colors.transparent)),
+                    flex: 9,
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Image.asset('images/heart.png', height: 1500, width: 1000,))),
                 const Padding(padding: EdgeInsets.all(16)),
-                const Spacer(flex: 1),
+                const Spacer(flex: 3),
                 Expanded(
                   flex: 6,
                   child: Row(
@@ -87,6 +89,7 @@ class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
                                     )),
                                   )),
                             ),
+                            
                         
                            ],
                         ),

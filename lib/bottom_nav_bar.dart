@@ -1,3 +1,4 @@
+import 'package:fit_track/ui/widgets/final_custom_icons_icons.dart';
 import 'package:flutter/material.dart';
 import 'main_screen.dart';
 import 'timer_screen.dart';
@@ -31,15 +32,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
         items: const <BottomNavigationBarItem>[
          
           BottomNavigationBarItem(
-            icon: Icon(Icons.timer),
+            icon: Icon(FinalCustomIcons.timer),
             label: 'Timer',
           ),
            BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(FinalCustomIcons.home),
             label: 'Main',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(FinalCustomIcons.settings),
             label: 'Settings',
           ),
         ],
