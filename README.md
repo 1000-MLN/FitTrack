@@ -55,3 +55,6 @@ FitTrack is a Flutter application designed to help users create, edit, and track
 - **appbar.dart:** Custom app bar widget.
 - **final_custom_icons_icons.dart:** Custom icons used in the app.
 - **settings_screen.dart:** Screen for changing app settings, including theme switching.
+
+
+![Demo GIF](assets/screens/1719864210043658.gif)
