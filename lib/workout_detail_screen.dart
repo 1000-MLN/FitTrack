@@ -45,13 +45,17 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
               TextField(
                 
                 controller: _sectionNameController,
-                decoration: const InputDecoration(labelText: 'Section Name',
+                decoration: const InputDecoration(
+                  labelText: 'Section Name',
                   border: InputBorder.none,
                 ),
               ),
               TextField(
                 controller: _setsController,
-                decoration: const InputDecoration(labelText: 'Number of Sets' ,border: InputBorder.none,),
+                decoration: const InputDecoration(
+                  labelText: 'Number of Sets',
+                  border: InputBorder.none,
+                ),
                 keyboardType: TextInputType.number,
               ),
             ],
@@ -94,13 +98,15 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             children: [
               TextField(
                 controller: _sectionNameController,
-                decoration: const InputDecoration(labelText: 'Section Name',
+                decoration: const InputDecoration(
+                  labelText: 'Section Name',
                   border: InputBorder.none,
                 ),
               ),
               TextField(
                 controller: _setsController,
-                decoration: const InputDecoration(labelText: 'Number of Sets',
+                decoration: const InputDecoration(
+                  labelText: 'Number of Sets',
                   border: InputBorder.none,
                 ),
                 keyboardType: TextInputType.number,
@@ -143,21 +149,23 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             children: [
               TextField(
                 controller: _exerciseNameController,
-                decoration: const InputDecoration(labelText: 'Exercise Name',
+                decoration: const InputDecoration(
+                  labelText: 'Exercise Name',
                   border: InputBorder.none,
                 ),
               ),
               TextField(
                 controller: _repsController,
-                decoration: const InputDecoration(labelText: 'Number of Reps',
+                decoration: const InputDecoration(
+                  labelText: 'Number of Reps',
                   border: InputBorder.none,
                 ),
                 keyboardType: TextInputType.number,
               ),
               TextField(
                 controller: _timeController,
-                decoration:
-                    const InputDecoration(labelText: 'Time (in seconds)',
+                decoration: const InputDecoration(
+                  labelText: 'Time (in seconds)',
                   border: InputBorder.none,
                 ),
                 keyboardType: TextInputType.number,
@@ -208,21 +216,23 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             children: [
               TextField(
                 controller: _exerciseNameController,
-                decoration: const InputDecoration(labelText: 'Exercise Name',
+                decoration: const InputDecoration(
+                  labelText: 'Exercise Name',
                   border: InputBorder.none,
                 ),
               ),
               TextField(
                 controller: _repsController,
-                decoration: const InputDecoration(labelText: 'Number of Reps',
+                decoration: const InputDecoration(
+                  labelText: 'Number of Reps',
                   border: InputBorder.none,
                 ),
                 keyboardType: TextInputType.number,
               ),
               TextField(
                 controller: _timeController,
-                decoration:
-                    const InputDecoration(labelText: 'Time (in seconds)',
+                decoration: const InputDecoration(
+                  labelText: 'Time (in seconds)',
                   border: InputBorder.none,
                 ),
                 keyboardType: TextInputType.number,
@@ -331,12 +341,10 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                         .textTheme
                         .bodyMedium
                         ?.copyWith(color: Colors.white),
-                  )),
-                )),
-            // child: IconButton(
-            //   onPressed: _saveWorkout,
-            //   icon: Icon(FinalCustomIcons.save),
-            // ),
+                  )
+                  ),
+                )
+                ),
           ),
         ],
       ),
@@ -351,22 +359,22 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                 IntrinsicWidth(
                   child: InkWell(
                     borderRadius: BorderRadius.circular(30),
-                     child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).primaryColor,
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8, horizontal: 10),
-                                    child: Center(
-                                        child: Text(
-                                      'Start workout!',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(color: Colors.white),
-                                    )),
-                                  ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 10),
+                      child: Center(
+                          child: Text(
+                        'Start workout!',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: Colors.white),
+                      )),
+                    ),
                     onTap: () {
                       if (sections
                           .expand((section) => section['exercises'])
@@ -466,6 +474,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
               ],
             );
           }
+          return null;
         },
       ),
       floatingActionButton: FloatingActionButton(

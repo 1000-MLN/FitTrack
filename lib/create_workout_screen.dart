@@ -1,5 +1,4 @@
-import 'package:fit_track/ui/widgets/appbar.dart';
-import 'package:fit_track/ui/widgets/final_custom_icons_icons.dart';
+import 'package:fit_track/ui/widgets/appbar.dart' show appBarCustom;
 import 'package:flutter/material.dart';
 import 'workout_detail_screen.dart';
 

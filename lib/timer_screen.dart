@@ -1,4 +1,3 @@
-import 'package:fit_track/ui/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math' as math;
