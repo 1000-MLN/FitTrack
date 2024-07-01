@@ -9,7 +9,6 @@ import 'bottom_nav_bar.dart';
 import 'create_workout_screen.dart';
 import 'workout_history_screen.dart';
 import 'workout_detail_screen.dart';
-import 'section_detail_screen.dart';
 
 void main() {
   setPathUrlStrategy();
@@ -36,9 +35,7 @@ class MyApp extends ConsumerWidget {
         '/home': (context) => const BottomNavBar(),
         '/createWorkout': (context) => CreateWorkoutScreen(),
         '/workoutHistory': (context) => const WorkoutHistoryScreen(workouts: []),
-        '/workoutDetail': (context) => const WorkoutDetailScreen(workoutName: ''),
-        '/sectionDetail': (context) => const SectionDetailScreen(section: {}),
-      },
+        '/workoutDetail': (context) => const WorkoutDetailScreen(workoutName: ''),      },
     );
   }
 }

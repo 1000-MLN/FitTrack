@@ -1,3 +1,4 @@
+import 'package:fit_track/ui/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'create_workout_screen.dart';
 import 'workout_history_screen.dart';
@@ -16,7 +17,7 @@ class MainScreen extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.bottomCenter,
-            height: MediaQuery.of(context).size.height * 0.67,
+            height: MediaQuery.of(context).size.height * 0.6,
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: const BorderRadius.only(
@@ -29,15 +30,16 @@ class MainScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Spacer(flex: 5),
                  Expanded(
-                    flex: 16,
+                    flex: 9,
                     child: Container(
-                      alignment: Alignment.center,
-                      height: 500,
-                      child: Image.asset('assets/images/base.png'),
+                      height: 320,
+                      width: 320,
+                      child: Image.asset('assets/images/base_dinosaur.png'),
                     )),
                 const Padding(padding: EdgeInsets.all(16)),
-                const Spacer(flex: 1),
+                const Spacer(flex: 3),
           Expanded(
             flex: 6,
             child: Column(

@@ -45,22 +45,28 @@ class _WelcomeScreen extends ConsumerState<WelcomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Padding(padding: EdgeInsets.only(top: 20)),
-                Container(
-                  alignment: Alignment.center,
-                  width: 370,
-                  child: Text(
-                    maxLines: 2,
-                    "Nice to meet you, ${name.name}!",
-                    style: theme.textTheme.displayLarge?.copyWith(color: Colors.white),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 300,
+                    child: Text(
+                      maxLines: 2,
+                      "Nice to meet you, ${name.name}!",
+                      style: theme.textTheme.headlineLarge?.copyWith(color: Colors.white),
+                    ),
                   ),
                 ),
-                Expanded(
-                    flex: 9,
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Image.asset('assets/images/heart.png', height: 1500, width: 1000,))),
+                Padding(padding: EdgeInsets.only(top: 20)),
+                 Expanded(
+                    flex: 8,
+                    child: Container(
+                      height: 300,
+                      width: 300,
+                      child: Image.asset('assets/images/heart_dinosaur.png'),
+                    )),
                 const Padding(padding: EdgeInsets.all(16)),
-                const Spacer(flex: 3),
+                const Spacer(flex: 2),
                 Expanded(
                   flex: 6,
                   child: Row(

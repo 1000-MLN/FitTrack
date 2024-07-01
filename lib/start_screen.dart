@@ -47,14 +47,16 @@ class _StartScreen extends ConsumerState<StartScreen> {
                 children: [
                   const Padding(padding: EdgeInsets.only(top: 15)),
                   Text("Fit Track", style: theme.textTheme.displayLarge?.copyWith(color: Colors.white, fontSize: 52)),
+                  Spacer(flex: 2),
                   Expanded(
-                      flex: 11,
-                      child: SizedBox(
-                        height: 500,
-                        child: Image.asset('assets/images/base.png'),
+                      flex: 8,
+                      child: Container(
+                        height: 280,
+                        width: 280,
+                        child: Image.asset('assets/images/base_dinosaur.png'),
                       )),
                   const Padding(padding: EdgeInsets.all(16)),
-                  const Spacer(flex: 1),
+                  const Spacer(flex: 2),
                   Expanded(
                     flex: 6,
                     child: Column(
