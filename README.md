@@ -60,7 +60,4 @@ FitTrack is a Flutter application designed to help users create, edit, and track
 ![Demo GIF](assets/screens/1719864210043658.gif)
 ![Demo GIF](assets/screens/1719864388550482.gif)
 ![Demo GIF](assets/screens/1719864706338576.gif)
-![Demo GIF](assets/screens/1719864861282143.gif)
-![Demo GIF](assets/screens/1719864920129963.gif)
-![Demo GIF](assets/screens/1719865065752128.gif)
 
